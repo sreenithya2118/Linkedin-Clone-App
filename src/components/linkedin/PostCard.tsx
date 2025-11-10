@@ -11,8 +11,8 @@ import { toast } from "sonner"
 import { formatDistanceToNow } from "date-fns"
 
 interface Post {
-  id: number
-  userId: number
+  id: string
+  userId: string
   content: string
   imageUrl: string | null
   likesCount: number
@@ -20,7 +20,7 @@ interface Post {
   createdAt: string
   isLiked: boolean
   user: {
-    id: number
+    id: string
     name: string
     headline: string | null
     avatar: string | null
@@ -28,12 +28,12 @@ interface Post {
 }
 
 interface Comment {
-  id: number
-  userId: number
+  id: string
+  userId: string
   content: string
   createdAt: string
   user: {
-    id: number
+    id: string
     name: string
     headline: string | null
     avatar: string | null

@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface User {
-  id: number
+  id: string
   name: string
   email: string
   headline: string | null
