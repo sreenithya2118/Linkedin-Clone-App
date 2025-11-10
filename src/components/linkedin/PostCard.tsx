@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { ThumbsUp, MessageSquare, Repeat2, Send, MoreHorizontal } from "lucide-react"
 import { toast } from "sonner"
 import { formatDistanceToNow } from "date-fns"
+import { normalizeComment } from "@/lib/normalizers"
 
 interface Post {
   id: string
@@ -115,7 +116,10 @@ export const PostCard = ({ post, onUpdate }: PostCardProps) => {
       if (!response.ok) throw new Error("Failed to load comments")
 
       const data = await response.json()
-      setComments(data.comments)
+      const fetchedComments = Array.isArray(data.comments)
+        ? data.comments.map((comment: any) => normalizeComment(comment, post.id))
+        : []
+      setComments(fetchedComments as Comment[])
     } catch (error) {
       console.error("Failed to load comments:", error)
       toast.error("Failed to load comments")
@@ -147,7 +151,10 @@ export const PostCard = ({ post, onUpdate }: PostCardProps) => {
       if (!response.ok) throw new Error("Failed to post comment")
 
       const data = await response.json()
-      setComments([...comments, data.comment])
+      setComments([
+        ...comments,
+        normalizeComment(data.comment, post.id) as Comment
+      ])
       setCommentText("")
       toast.success("Comment posted!")
       onUpdate?.()

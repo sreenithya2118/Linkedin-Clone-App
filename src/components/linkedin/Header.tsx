@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useEffect, useState } from "react"
+import { normalizeUser as normalizeUserData } from "@/lib/normalizers"
 
 interface User {
   id: string
@@ -51,7 +52,7 @@ export const Header = () => {
         }
 
         const data = await response.json()
-        setUser(data.user)
+        setUser(normalizeUserData(data.user) as User)
       } catch (error) {
         console.error("Failed to fetch user:", error)
         router.push("/login")

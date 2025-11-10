@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { normalizeUser as normalizeUserData } from "@/lib/normalizers"
 
 interface User {
   id: string
@@ -37,7 +38,7 @@ export const LeftSidebar = () => {
 
         if (userResponse.ok) {
           const userData = await userResponse.json()
-          setUser(userData.user)
+          setUser(normalizeUserData(userData.user) as User)
         }
 
         // Fetch connections count

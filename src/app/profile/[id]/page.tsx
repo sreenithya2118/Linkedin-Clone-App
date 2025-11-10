@@ -11,9 +11,10 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Toaster } from "@/components/ui/sonner"
 import { MapPin, Building2, Mail, UserPlus, UserCheck, Clock, Pencil } from "lucide-react"
 import { toast } from "sonner"
+import { normalizePost, normalizeUser } from "@/lib/normalizers"
 
 interface User {
-  id: number
+  id: string
   name: string
   email: string
   headline: string | null
@@ -25,8 +26,8 @@ interface User {
 }
 
 interface Post {
-  id: number
-  userId: number
+  id: string
+  userId: string
   content: string
   imageUrl: string | null
   likesCount: number
@@ -34,7 +35,7 @@ interface Post {
   createdAt: string
   isLiked: boolean
   user: {
-    id: number
+    id: string
     name: string
     headline: string | null
     avatar: string | null
@@ -72,7 +73,7 @@ export default function ProfilePage() {
       }
 
       const currentUserData = await currentUserResponse.json()
-      setCurrentUser(currentUserData.user)
+      setCurrentUser(normalizeUser(currentUserData.user) as User)
 
       // Fetch profile user with connection status
       const profileResponse = await fetch(`/api/users/${userId}`, {
@@ -81,7 +82,7 @@ export default function ProfilePage() {
 
       if (profileResponse.ok) {
         const profileData = await profileResponse.json()
-        setProfileUser(profileData.user)
+        setProfileUser(normalizeUser(profileData.user) as User)
         setConnectionStatus(profileData.connectionStatus)
       }
 
@@ -92,8 +93,10 @@ export default function ProfilePage() {
 
       if (postsResponse.ok) {
         const postsData = await postsResponse.json()
-        // Filter posts by this user
-        const userPosts = postsData.posts.filter((post: Post) => post.userId === parseInt(userId))
+        const normalizedPosts = Array.isArray(postsData.posts)
+          ? (postsData.posts.map((post: any) => normalizePost(post)) as Post[])
+          : []
+        const userPosts = normalizedPosts.filter((post) => post.userId === userId)
         setPosts(userPosts)
       }
     } catch (error) {

@@ -9,6 +9,7 @@ import { PostComposer } from "@/components/linkedin/PostComposer"
 import { PostCard } from "@/components/linkedin/PostCard"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Toaster } from "@/components/ui/sonner"
+import { normalizePost, normalizeUser } from "@/lib/normalizers"
 
 interface User {
   id: string
@@ -34,31 +35,6 @@ interface Post {
     avatar: string | null
   }
 }
-
-const normalizeUser = (rawUser: any): User => ({
-  id: rawUser?.id?.toString() ?? "",
-  name: rawUser?.name ?? "",
-  email: rawUser?.email ?? "",
-  headline: rawUser?.headline ?? null,
-  avatar: rawUser?.avatar ?? null
-})
-
-const normalizePost = (rawPost: any): Post => ({
-  id: rawPost?.id?.toString() ?? "",
-  userId: rawPost?.userId?.toString() ?? rawPost?.user?.id?.toString() ?? "",
-  content: rawPost?.content ?? "",
-  imageUrl: rawPost?.imageUrl ?? rawPost?.imageURL ?? null,
-  likesCount: rawPost?.likesCount ?? rawPost?.likes?.length ?? 0,
-  commentsCount: rawPost?.commentsCount ?? rawPost?.comments?.length ?? 0,
-  createdAt: rawPost?.createdAt ?? new Date().toISOString(),
-  isLiked: Boolean(rawPost?.isLiked),
-  user: {
-    id: rawPost?.user?.id?.toString() ?? rawPost?.userId?.toString() ?? "",
-    name: rawPost?.user?.name ?? rawPost?.username ?? "User",
-    headline: rawPost?.user?.headline ?? rawPost?.userHeadline ?? null,
-    avatar: rawPost?.user?.avatar ?? rawPost?.userAvatar ?? null
-  }
-})
 
 export default function FeedPage() {
   const router = useRouter()
@@ -96,7 +72,7 @@ export default function FeedPage() {
       if (postsResponse.ok) {
         const postsData = await postsResponse.json()
         const normalizedPosts = Array.isArray(postsData.posts)
-          ? postsData.posts.map(normalizePost)
+          ? (postsData.posts.map((post: any) => normalizePost(post)) as Post[])
           : []
         setPosts(normalizedPosts)
       }
