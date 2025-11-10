@@ -1,0 +1,136 @@
+/* Updated: 2025-11-10T05:24:56.529Z */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-linkedin-blue: var(--linkedin-blue);
+  --color-linkedin-blue-hover: var(--linkedin-blue-hover);
+  --color-linkedin-blue-dark: var(--linkedin-blue-dark);
+  --color-linkedin-bg: var(--linkedin-bg);
+}
+
+:root {
+  --radius: 0.5rem;
+  --linkedin-blue: #0A66C2;
+  --linkedin-blue-hover: #004182;
+  --linkedin-blue-dark: #003366;
+  --linkedin-bg: #F3F2EF;
+  --background: #F3F2EF;
+  --foreground: #000000DE;
+  --card: #FFFFFF;
+  --card-foreground: #000000DE;
+  --popover: #FFFFFF;
+  --popover-foreground: #000000DE;
+  --primary: #0A66C2;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3F2EF;
+  --secondary-foreground: #000000DE;
+  --muted: #F3F2EF;
+  --muted-foreground: #00000099;
+  --accent: #EDF3F8;
+  --accent-foreground: #0A66C2;
+  --destructive: #CC1016;
+  --border: #00000014;
+  --input: #00000033;
+  --ring: #0A66C2;
+  --chart-1: #0A66C2;
+  --chart-2: #378FE9;
+  --chart-3: #5E5E5E;
+  --chart-4: #56687A;
+  --chart-5: #915907;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #000000DE;
+  --sidebar-primary: #0A66C2;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EDF3F8;
+  --sidebar-accent-foreground: #0A66C2;
+  --sidebar-border: #00000014;
+  --sidebar-ring: #0A66C2;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #FFFFFFDE;
+  --card: #1B1F23;
+  --card-foreground: #FFFFFFDE;
+  --popover: #1B1F23;
+  --popover-foreground: #FFFFFFDE;
+  --primary: #378FE9;
+  --primary-foreground: #FFFFFF;
+  --secondary: #38434F;
+  --secondary-foreground: #FFFFFFDE;
+  --muted: #38434F;
+  --muted-foreground: #FFFFFF99;
+  --accent: #004182;
+  --accent-foreground: #FFFFFF;
+  --destructive: #F55257;
+  --border: #FFFFFF1F;
+  --input: #FFFFFF33;
+  --ring: #378FE9;
+  --chart-1: #378FE9;
+  --chart-2: #70B5F9;
+  --chart-3: #D0D0CE;
+  --chart-4: #56687A;
+  --chart-5: #915907;
+  --sidebar: #1B1F23;
+  --sidebar-foreground: #FFFFFFDE;
+  --sidebar-primary: #378FE9;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #004182;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #FFFFFF1F;
+  --sidebar-ring: #378FE9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hide Next.js error overlay portal */
+nextjs-portal {
+  display: none !important;
+}
